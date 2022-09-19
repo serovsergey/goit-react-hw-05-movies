@@ -3,8 +3,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 // import { MovieDetails } from "pages/MovieDetails";
 // import { Home } from "../pages/Home";
 // import { Movies } from "../pages/Movies";
-import { Cast } from "./Cast";
-import { Reviews } from "./Reviews";
+import { Cast } from "../pages/MovieDetails/Cast";
+import { Reviews } from "../pages/MovieDetails/Reviews";
 import { SharedLayout } from "./SharedLayout";
 
 const Home = lazy(() => import("../pages/Home"));
@@ -18,8 +18,8 @@ export const App = () => {
         <Route index element={<Home />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/movies/:movieId" element={<MovieDetails />} >
-          <Route exact path="/movies/:movieId/cast" element={<Cast />} />
-          <Route exact path="/movies/:movieId/reviews" element={<Reviews />} />
+          <Route exact path="cast" element={<Cast />} />
+          <Route exact path="reviews" element={<Reviews />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Route>

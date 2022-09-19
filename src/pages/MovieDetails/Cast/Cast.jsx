@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 // import PropTypes from 'prop-types';
-import noImage from '../../assets/no-image.svg';
+import noImage from '../../../assets/no-image.svg';
 
 import s from './Cast.module.scss';
-import * as API from '../../services/tmdbAPI';
+import * as API from '../../../services/tmdbAPI';
 import Loader from 'components/common/Loader';
 
 export const Cast = (props) => {

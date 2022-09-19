@@ -9,15 +9,15 @@ import Loader from 'components/common/Loader';
 
 const MovieDetails = (props) => {
   const [movieDetails, setMovieDetails] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const params = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const { movieId } = useParams();
   const location = useLocation();
 
   useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
-        const data = await API.getMovieDetails(params.movieId);
+        const data = await API.getMovieDetails(movieId);
         // console.log(data)
         if (data) {
           setMovieDetails(data);
@@ -30,14 +30,19 @@ const MovieDetails = (props) => {
         setIsLoading(false);
       }
     })();
-  }, [params.movieId])
+  }, [movieId])
 
   if (isLoading) {
     return <Loader />
   }
 
   if (!movieDetails) {
-    return;
+    return (
+      <>
+        <Link to='/' className={s.link}> Go Home</Link>
+        <h2>Wrong movie id</h2>
+      </>
+    );
   }
 
   const getLinkClassName = ({ isActive }) => s.tab + (isActive ? " " + s.active : "");
@@ -48,14 +53,13 @@ const MovieDetails = (props) => {
   const userScore = (vote_average * 10).toFixed(0);
   const genresString = genres.map((({ name }) => name)).join(' ');
 
-
   return (
     <div >
-      <Link to={location?.state?.from ?? '/movies'} className={s.link}> Go Back</Link>
+      <Link to={location?.state?.from ?? '/movies'} className={s.link}>{'\u2B9C'} Go Back</Link>
       <div className={s.info}>
         <img src={poster_path ? API.IMAGES_BASE_URL + 'w342' + poster_path : noImage} alt={title} className={s.poster} />
         <div>
-          <h2>{title} {releaseYear && `(${releaseYear})`}</h2>
+          <h2>{title} {!!releaseYear && `(${releaseYear})`}</h2>
           <p>User score: {userScore}%</p>
           <h3>Overview</h3>
           <p>{overview}</p>
@@ -67,8 +71,8 @@ const MovieDetails = (props) => {
       <hr />
       <h3>Additional Information:</h3>
       <ul className={s.btnList}>
-        <li><NavLink to={`/movies/${params.movieId}/reviews`} state={location.state} className={getLinkClassName}>Reviews</NavLink></li>
-        <li><NavLink to={`/movies/${params.movieId}/cast`} state={location.state} className={getLinkClassName}>Cast</NavLink></li>
+        <li><NavLink to={`/movies/${movieId}/reviews`} state={location.state} className={getLinkClassName}>Reviews</NavLink></li>
+        <li><NavLink to={`/movies/${movieId}/cast`} state={location.state} className={getLinkClassName}>Cast</NavLink></li>
       </ul>
       {/* <hr /> */}
       <Outlet />

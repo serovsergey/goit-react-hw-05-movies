@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import s from './Pagination.module.scss';
 
 export const Pagination = ({ page, total_pages, onNavigate }) => {
-
   const handleNavigate = (evt) => {
     onNavigate(evt.target.value);
   }

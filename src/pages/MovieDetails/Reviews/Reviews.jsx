@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
-import * as API from '../../services/tmdbAPI';
+import * as API from '../../../services/tmdbAPI';
 
 import s from './Reviews.module.scss';
 import { useParams } from 'react-router-dom';
